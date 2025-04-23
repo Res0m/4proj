@@ -1,7 +1,25 @@
 const WebSocket = require('ws');
+const http = require('http');
 
-const PORT = 3002;
-const wss = new WebSocket.Server({ port: PORT });
+const PORT = process.env.PORT || 3003;
+
+// Создаем HTTP сервер для health check
+const server = http.createServer((req, res) => {
+    if (req.url === '/health') {
+        res.writeHead(200);
+        res.end('OK');
+    } else {
+        res.writeHead(404);
+        res.end();
+    }
+});
+
+// Создаем WebSocket сервер
+const wss = new WebSocket.Server({ 
+    server,
+    path: '/ws',
+    clientTracking: true
+});
 
 // Хранилище подключенных клиентов
 const clients = new Set();
@@ -57,7 +75,7 @@ function cleanupInactiveConnections() {
 // Периодическая очистка неактивных соединений
 setInterval(cleanupInactiveConnections, 30000);
 
-wss.on('connection', function connection(ws) {
+wss.on('connection', function connection(ws, req) {
     console.log('Новый клиент подключен');
     clients.add(ws);
 
@@ -127,9 +145,11 @@ wss.on('connection', function connection(ws) {
     });
 });
 
-// Обработка ошибок сервера
 wss.on('error', function error(error) {
     console.error('Ошибка WebSocket сервера:', error);
 });
 
-console.log(`WebSocket сервер запущен на ws://localhost:${PORT}`); 
+// Запуск сервера
+server.listen(PORT, () => {
+    console.log(`Чат-сервер запущен на ws://localhost:${PORT}/ws`);
+}); 

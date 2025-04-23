@@ -5,12 +5,12 @@ const fs = require('fs').promises;
 const path = require('path');
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Путь к файлу с данными
 const dataPath = path.join(__dirname, '../data/products.json');
@@ -160,7 +160,7 @@ app.delete('/api/products/:id', async (req, res) => {
 
 // Serve admin panel
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Обработка ошибок
@@ -169,6 +169,7 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Что-то пошло не так!' });
 });
 
+// Запуск сервера
 app.listen(PORT, () => {
-    console.log(`Сервер админ-панели запущен на http://localhost:${PORT}`);
+    console.log(`Админ-панель запущена на http://localhost:${PORT}`);
 }); 

@@ -162,10 +162,10 @@
         let ws;
         let reconnectAttempts = 0;
         const maxReconnectAttempts = 5;
-        const WS_PORT = 3002; // Порт для WebSocket сервера
+        const WS_PORT = 3003; // Порт для WebSocket сервера
 
         function connectWebSocket() {
-            ws = new WebSocket(`ws://localhost:${WS_PORT}`);
+            ws = new WebSocket(`ws://localhost:${WS_PORT}/ws`);
 
             ws.onopen = function() {
                 console.log('Подключено к чату');

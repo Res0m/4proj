@@ -150,7 +150,7 @@
     <script>
         // Константы
         const API_URL = 'http://localhost:3001/api';
-        const WS_PORT = 3002;
+        const WS_PORT = 3003;
         
         // Элементы интерфейса
         const productForm = document.getElementById('product-form');
@@ -343,7 +343,7 @@
         const maxReconnectAttempts = 5;
 
         function connectWebSocket() {
-            ws = new WebSocket(`ws://localhost:${WS_PORT}`);
+            ws = new WebSocket(`ws://localhost:${WS_PORT}/ws`);
 
             ws.onopen = function() {
                 console.log('Подключено к чату');

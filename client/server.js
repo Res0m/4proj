@@ -6,7 +6,7 @@ const path = require('path');
 const schema = require('./schema');
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3002;
 
 // Функция для чтения данных о продуктах
 async function readProductsData() {
@@ -90,7 +90,7 @@ const root = {
 
 // Middleware
 app.use(cors());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // GraphQL endpoint
 app.use('/graphql', graphqlHTTP({
@@ -104,9 +104,9 @@ app.use('/graphql', graphqlHTTP({
     })
 }));
 
-// Serve index.html
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/index.html'));
+// Обработка всех маршрутов
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Обработка ошибок
@@ -115,6 +115,7 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Что-то пошло не так!' });
 });
 
+// Запуск сервера
 app.listen(PORT, () => {
     console.log(`Клиентский сервер запущен на http://localhost:${PORT}`);
 }); 
