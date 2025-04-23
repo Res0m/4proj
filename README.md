@@ -15,7 +15,7 @@
 
 1. Клонируйте репозиторий:
 ```bash
-git clone [url-репозитория]
+git clone https://github.com/Res0m/4proj.git
 ```
 
 2. Установите зависимости:
