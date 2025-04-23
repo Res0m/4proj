@@ -1,0 +1,29 @@
+{
+  "name": "shop-project",
+  "version": "1.0.0",
+  "description": "Интернет-магазин с админ-панелью",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "start:client": "node client/server.js",
+    "start:admin": "node admin/server.js",
+    "start:chat": "node chat-server/server.js",
+    "dev": "nodemon server.js",
+    "dev:client": "nodemon client/server.js",
+    "dev:admin": "nodemon admin/server.js",
+    "dev:chat": "nodemon chat-server/server.js",
+    "start:all": "concurrently \"npm run start\" \"npm run start:client\" \"npm run start:admin\" \"npm run start:chat\"",
+    "dev:all": "concurrently \"npm run dev\" \"npm run dev:client\" \"npm run dev:admin\" \"npm run dev:chat\""
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.8.1",
+    "ws": "^8.16.0",
+    "concurrently": "^8.2.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
