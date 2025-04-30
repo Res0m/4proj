@@ -50,7 +50,7 @@ npm run dev:all
 - Основной интерфейс магазина: `http://localhost:3000`
 - Админ-панель: `http://localhost:3001`
 - WebSocket чат: `ws://localhost:3002`
->>>>>>> 42d4e5abf4ae593b3bb58e7ea8b6da6283aee9d3
+
 
 ## Структура проекта
 
